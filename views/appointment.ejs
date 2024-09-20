@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('layouts/header'); -%>
+    
+    <body>
+        <!-- Navigation-->
+        <%- include('layouts/navbar'); -%>
+        <header class="masthead" style="background-image: url('assets/img/g.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>Appointment</h1>
+                            <span class="subheading">Test</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="container">
+            <% if (user_type=="Admin") {%>
+            <h1>Add Appointment Slots</h1>
+            <form action="/addAppointment" method="post">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" required><br><br>
+
+                <label>Select Appointment Slots:</label><br>
+                <% for (var i = 9; i <= 16; i++) { %>
+                    <button id="btn-class<%=i%>:00" type="button" class="btn btn-success mb-3 btn-time" onclick="selectTime('<%= i %>:00')"> <%= i %>:00 </button>
+                    <button id="btn-class<%=i%>:30" type="button" class="btn btn-success mb-3 btn-time" onclick="selectTime('<%= i %>:30')"> <%= i %>:30 </button>
+                <% } %>
+                
+                <input type="hidden" id="appointment_time" name="appointment_time" required>
+                <br>
+                <button type="submit" class="btn btn-dark mb-3">Add Appointment Slots</button>
+            </form>
+    <script>
+        function selectTime(time) {
+        var buttons = document.querySelectorAll('.btn-time'); // Get all buttons with class 'btn-time'
+        
+        // Deselect all buttons
+        buttons.forEach(function(button) {
+            button.classList.remove('btn-danger');
+            button.classList.add('btn-success');
+        });
+
+        // Select the clicked button
+        document.getElementById(`btn-class${time}`).classList.remove('btn-success');
+        document.getElementById(`btn-class${time}`).classList.add('btn-danger');
+
+        document.getElementById('appointment_time').value = time;
+    }
+    </script>
+            <% } else {%>
+                    <h2>Sorry You are not Authorized to view this page</h2>
+            <% } %>
+        </main>
+        <%- include('layouts/footer'); -%>
+        <%- include('layouts/scripts'); -%>
+    </body>
+</html>
