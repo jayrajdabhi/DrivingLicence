@@ -26,13 +26,14 @@ const ejs = require('ejs')
 app.set('view engine','ejs')
 
 // connection to mongodn atlas
-mongoose.connect('mongodb+srv://dabhijayraj200498:FqKOiFMh4AXaHBir@cluster0.0pfx1gq.mongodb.net/Driving4?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://username:password@cluster0.0pfx1gq.mongodb.net/Driving4?retryWrites=true&w=majority')
     .then(()=>console.log("Connection Successful")).catch((err)=>console.log(err));
 
 
 app.use(express.static('public'));
 
 app.listen('4000', ()=> console.log("App listening on port 4000"))
+
 
 
 
